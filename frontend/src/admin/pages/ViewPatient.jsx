@@ -32,7 +32,7 @@ export default function ViewPatient() {
       {patient.file && (
         <Box mt={2}>
           <a
-            href={`http://localhost:5000/uploads/${patient.file}`}
+            href={`https://lumi-page.onrender.com/uploads/${patient.file}`}
             target="_blank"
             rel="noreferrer"
           >

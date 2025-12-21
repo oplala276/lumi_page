@@ -20,7 +20,7 @@ export default function PatientsTable() {
   };
 
   const deletePatient = async (id) => {
-    await fetch(`http://localhost:5000/api/patient/${id}`, {
+    await fetch(`https://lumi-page.onrender.com/api/patient/${id}`, {
       method: "DELETE",
     });
     getData();
