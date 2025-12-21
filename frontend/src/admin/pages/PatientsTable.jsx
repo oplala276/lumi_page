@@ -14,7 +14,7 @@ export default function PatientsTable() {
   const [patients, setPatients] = useState([]);
 
   const getData = async () => {
-    const res = await fetch("http://localhost:5000/api/patient");
+    const res = await fetch("https://lumi-page-api.onrender.com/api/patient");
     const data = await res.json();
     setPatients(data.patients);
   };

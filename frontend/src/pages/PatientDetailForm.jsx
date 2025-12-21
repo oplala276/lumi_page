@@ -131,7 +131,7 @@ const handleSubmit = async (e) => {
   }
 
   try {
-    const res = await fetch("http://localhost:5000/api/patient/add", {
+    const res = await fetch("https://lumi-page-api.onrender.com/api/patient/add", {
       method: "POST",
       body: formData,
     });

@@ -8,7 +8,7 @@ export default function ViewPatient() {
 
   useEffect(() => {
     const load = async () => {
-      const res = await fetch(`http://localhost:5000/api/patient/${id}`);
+      const res = await fetch(`https://lumi-page-api.onrender.com/api/patient/${id}`);
       const data = await res.json();
       setPatient(data.patient);
     };

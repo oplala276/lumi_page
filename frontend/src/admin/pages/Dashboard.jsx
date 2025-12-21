@@ -9,7 +9,7 @@ export default function Dashboard() {
   });
 
   const fetchStats = async () => {
-    const res = await fetch("http://localhost:5000/api/patient");
+    const res = await fetch("https://lumi-page-api.onrender.com/api/patient");
     const data = await res.json();
     const patients = data.patients;
 
