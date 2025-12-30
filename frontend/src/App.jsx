@@ -10,7 +10,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 function App(){
   // return <LoginPage />;
-  // return <PatientDetailForm/>;
+  // return <PatientDetailForm/>; 
   // return <AllRoutes/>;
 return(
   <BrowserRouter>

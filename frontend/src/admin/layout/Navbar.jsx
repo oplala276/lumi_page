@@ -15,7 +15,7 @@ export default function Navbar() {
       }}
     >
       <Typography variant="h5" fontWeight="600" margin='Auto'>      
-       Admin Dashboard
+       Patient Management System
       </Typography>
     </Box>
   );

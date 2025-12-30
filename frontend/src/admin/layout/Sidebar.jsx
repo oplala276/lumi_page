@@ -1,8 +1,22 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { Box, List, ListItemButton, ListItemText, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export default function Sidebar() {
+const [total, setTotal] = useState(0);
+
+  const fetchStats = async () => {
+    const res = await fetch("https://lumi-page-api.onrender.com/api/patient");
+    const data = await res.json();
+    const patients = data.patients;
+    setTotal(patients.length);
+  };
+
+  useEffect(() => {
+      fetchStats();
+    }, []);
+
   return (
     <Box
       sx={{
@@ -25,10 +39,25 @@ export default function Sidebar() {
         </ListItemButton>
 
         <ListItemButton component={Link} to="/admin/patients">
-          <ListItemText primary="Patients List" />
+          <ListItemText primary={`Patients List(${total})`} />
         </ListItemButton>
         <ListItemButton component={Link} to="/addpatient">
-          <ListItemText primary="Add Patient" />
+          <ListItemText primary="Add New Patient" />
+        </ListItemButton>
+        <ListItemButton>
+          <ListItemText primary="Attach Medical Report" />
+        </ListItemButton>
+        <ListItemButton>
+          <ListItemText primary="Appointments History" />
+        </ListItemButton>
+        <ListItemButton>
+          <ListItemText primary="Fix An Appointment" />
+        </ListItemButton>
+        <ListItemButton>
+          <ListItemText primary="Doctors On Board" />
+        </ListItemButton>
+        <ListItemButton>
+          <ListItemText primary="Add New Doctor" />
         </ListItemButton>
       </List>
     </Box>
