@@ -15,7 +15,8 @@ export async function createPatient(req, res) {
     if (req.file) {
       data.file = req.file.filename;
     }
-    const patient = await Patient.create({patientId, data});
+    // const patient = await Patient.create({patientId, data});
+    const patient = await Patient.create({...data, patientId });
     res.status(201).json({
       success: true,
       message: `${patientId} registered successfully`,
