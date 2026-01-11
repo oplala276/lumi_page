@@ -76,7 +76,6 @@
 //   );
 // }
 
-
 import React, { useEffect, useState } from "react";
 import {
   Table,
@@ -89,7 +88,7 @@ import {
   TextField,
   Box,
   Avatar,
-  Typography
+  Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
@@ -138,20 +137,33 @@ export default function PatientsTable() {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell><b>Patient ID</b></TableCell>
-            <TableCell><b>Thumb Impression</b></TableCell>
-            <TableCell><b>Patient Full Name</b></TableCell>
-            <TableCell><b>Sex, Age & Location</b></TableCell>
-            <TableCell><b>Contact Mobile Number</b></TableCell>
-            <TableCell><b>Referral Name</b></TableCell>
-            <TableCell><b>Action</b></TableCell>
+            <TableCell>
+              <b>Patient ID</b>
+            </TableCell>
+            <TableCell>
+              <b>Thumb Impression</b>
+            </TableCell>
+            <TableCell>
+              <b>Patient Full Name</b>
+            </TableCell>
+            <TableCell>
+              <b>Sex, Age & Location</b>
+            </TableCell>
+            <TableCell>
+              <b>Contact Mobile Number</b>
+            </TableCell>
+            <TableCell>
+              <b>Referral Name</b>
+            </TableCell>
+            <TableCell>
+              <b>Action</b>
+            </TableCell>
           </TableRow>
         </TableHead>
 
         <TableBody>
           {filteredPatients.map((p) => (
             <TableRow key={p._id}>
-              
               <TableCell>{p.patientId}</TableCell>
 
               {/* Thumb Placeholder */}
@@ -162,9 +174,7 @@ export default function PatientsTable() {
                     width: 48,
                     height: 48,
                   }}
-                >
-                  
-                </Avatar>
+                ></Avatar>
               </TableCell>
 
               <TableCell>
@@ -175,7 +185,13 @@ export default function PatientsTable() {
               <TableCell>
                 {p.gender}, {p.age}
                 <br />
-                {p.address && `(${p.address})`}
+                {p.address && (
+                  <>
+                    {p.address.city}
+                    {p.address.state && `, ${p.address.state}`}
+                  </>
+                )}
+                {/* {p.address && `(${p.address})`} */}
               </TableCell>
 
               <TableCell>{p.mobile}</TableCell>
@@ -184,7 +200,6 @@ export default function PatientsTable() {
 
               {/* Action Buttons */}
               <TableCell>
-
                 <Button
                   size="small"
                   variant="outlined"
@@ -213,9 +228,7 @@ export default function PatientsTable() {
                 >
                   Delete
                 </Button>
-
               </TableCell>
-
             </TableRow>
           ))}
         </TableBody>

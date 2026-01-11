@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router = Router();
-import upload from "../middleware/upload.js";
+import upload from "../middleware/multer.js";
 import { createPatient, getPatients } from "../controllers/patientController.js";
 import { getPatientById, deletePatient } from "../controllers/patientController.js";
 

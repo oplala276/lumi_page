@@ -3,14 +3,33 @@ import Counterid from "../models/Counterid.js";
 
 export async function createPatient(req, res) {
   try {
-    const data = req.body;
+     console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
+    const data = { ...req.body };
+      if (data.address) {
+  data.address = JSON.parse(data.address);
+}
+    // const address = {
+    //   city: body.city || "",
+    //   landmark: body.landmark || "",
+    //   state: body.state || "",
+    //   pincode: body.pincode || "",
+    // };
 
+    // // ✅ remove flat fields
+    // delete body.city;
+    // delete body.landmark;
+    // delete body.state;
+    // delete body.pincode;
+
+    // // console.log("Patient Data:", data);
     const counter = await Counterid.findOneAndUpdate(
       { name: "patient" },
       { $inc: { seq: 1 } },
       { new: true, upsert: true }
     );
     const patientId = `PT_${String(counter.seq).padStart(7, "0")}`;
+    console.log("Generated Patient ID:", patientId);
     // Add uploaded file if exists
     if (req.file) {
       data.file = req.file.filename;

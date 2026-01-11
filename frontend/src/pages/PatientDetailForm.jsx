@@ -14,7 +14,6 @@ import {
   Radio,
   RadioGroup,
   MenuItem,
-  // TextareaAutosize,
 } from "@mui/material";
 
 export default function PatientDetailForm() {
@@ -165,28 +164,39 @@ export default function PatientDetailForm() {
     e.preventDefault();
 
     const formData = new FormData();
-    for (let key in form) {
+    // for (let key in form) {
+    //   if (key === "address") {
+    //     formData.append("city", form.address.city);
+    //     formData.append("landmark", form.address.landmark);
+    //     formData.append("state", form.address.state);
+    //     formData.append("pincode", form.address.pincode);
+    //   } else if (key === "caseType") {
+    //     form.caseType.forEach((item) => formData.append("caseType", item));
+    //   } else if (key === "file" && form.file) {
+    //     formData.append("file", form.file);
+    //   } else {
+    //     formData.append(key, form[key]);
+    //   }
+    // }
+    Object.keys(form).forEach((key) => {
       if (key === "address") {
-        formData.append("city", form.address.city);
-        formData.append("landmark", form.address.landmark);
-        formData.append("state", form.address.state);
-        formData.append("pincode", form.address.pincode);
+        formData.append("address", JSON.stringify(form.address));
       } else if (key === "caseType") {
-        form.caseType.forEach((item) => formData.append("caseType", item));
+        form.caseType.forEach((c) => formData.append("caseType", c));
       } else if (key === "file" && form.file) {
         formData.append("file", form.file);
       } else {
         formData.append(key, form[key]);
       }
-    }
+    });
     console.log("Form Data:", ...formData);
-    // for (let key in errors) {
-    //   if (errors[key]) {
-    //     alert("Please fix validation errors before submitting");
-    //     return;
-    //   }
-    // }
-    // https://lumi-page-api.onrender.com
+    for (let key in errors) {
+      if (errors[key]) {
+        alert("Please fix validation errors before submitting");
+        return;
+      }
+    }
+    // lumi-page-api.onrender.com
     try {
       const res = await fetch(
         "https://lumi-page-api.onrender.com/api/patient/add",
@@ -197,7 +207,6 @@ export default function PatientDetailForm() {
       );
       const data = await res.json();
       alert(data.message + "\nPlease note your patient Id");
-      // console.log("Response:", data);
       setForm(initialFormState);
     } catch (error) {
       console.log(error);
@@ -423,8 +432,13 @@ export default function PatientDetailForm() {
                 label="Village/City*"
                 name="city"
                 fullWidth
-                value={form.city}
-                onChange={(e) => setField("city", e.target.value)}
+                value={form.address.city}
+                onChange={(e) =>
+                  setField("address", {
+                    ...form.address,
+                    city: e.target.value,
+                  })
+                }
                 error={!!errors.city}
                 helperText={errors.city}
               />
@@ -471,9 +485,12 @@ export default function PatientDetailForm() {
                 label="Pin Code*"
                 name="pincode"
                 fullWidth
-                value={form.pincode}
+                value={form.address.pincode}
                 onChange={(e) =>
-                  setField("pincode", e.target.value.replace(/[^0-9]/g, ""))
+                  setField("address", {
+                    ...form.address,
+                    pincode: e.target.value.replace(/[^0-9]/g, ""),
+                  })
                 }
                 inputProps={{ maxLength: 6 }}
                 error={!!errors.pincode}
