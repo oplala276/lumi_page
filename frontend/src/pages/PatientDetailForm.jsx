@@ -160,24 +160,50 @@ export default function PatientDetailForm() {
     });
   };
 
+  const mandatoryCheck = () => {
+    const missingFields = [];
+
+    if (!form.registrationDate) missingFields.push("Registration Date");
+    if (!form.fullName.trim()) missingFields.push("Full Name");
+    if (!form.age) missingFields.push("Age");
+    if (!form.gender) missingFields.push("Gender");
+
+    if (!form.mobile) missingFields.push("Mobile Number");
+    // if (!form.whatsapp) missingFields.push("WhatsApp Number");
+    // if (!form.emergency) missingFields.push("Emergency Number");
+    // if (!form.guardian) missingFields.push("Guardian Number");
+    // if (!form.relationship) missingFields.push("Relationship");
+
+    if (!form.address.city) missingFields.push("City/Village");
+    if (!form.address.landmark) missingFields.push("Landmark");
+    if (!form.address.state) missingFields.push("State");
+    if (!form.address.pincode) missingFields.push("Pincode");
+
+    if (!form.referredBy) missingFields.push("Referred By");
+    if (!form.referredName) missingFields.push("Referred Name");
+
+    if (form.hasEmail === "Yes" && !form.email) missingFields.push("Email");
+
+    return missingFields;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const missingFields = mandatoryCheck();
+
+    if (missingFields.length > 0) {
+      alert("Please fill mandatory details:\n\n" + missingFields.join(", "));
+      return;
+    }
+    for (let key in errors) {
+      if (errors[key]) {
+        alert("Please fix validation errors before submitting");
+        return;
+      }
+    }
+
     const formData = new FormData();
-    // for (let key in form) {
-    //   if (key === "address") {
-    //     formData.append("city", form.address.city);
-    //     formData.append("landmark", form.address.landmark);
-    //     formData.append("state", form.address.state);
-    //     formData.append("pincode", form.address.pincode);
-    //   } else if (key === "caseType") {
-    //     form.caseType.forEach((item) => formData.append("caseType", item));
-    //   } else if (key === "file" && form.file) {
-    //     formData.append("file", form.file);
-    //   } else {
-    //     formData.append(key, form[key]);
-    //   }
-    // }
     Object.keys(form).forEach((key) => {
       if (key === "address") {
         formData.append("address", JSON.stringify(form.address));
@@ -189,13 +215,6 @@ export default function PatientDetailForm() {
         formData.append(key, form[key]);
       }
     });
-    console.log("Form Data:", ...formData);
-    for (let key in errors) {
-      if (errors[key]) {
-        alert("Please fix validation errors before submitting");
-        return;
-      }
-    }
     // lumi-page-api.onrender.com
     try {
       const res = await fetch(
