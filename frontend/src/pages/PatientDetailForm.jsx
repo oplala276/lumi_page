@@ -207,13 +207,6 @@ export default function PatientDetailForm() {
         formData.append(key, form[key]);
       }
     });
-    console.log("Form Data:", ...formData);
-    for (let key in errors) {
-      if (errors[key]) {
-        alert("Please fix validation errors before submitting");
-        return;
-      }
-    }
     // lumi-page-api.onrender.com
     try {
       const res = await fetch(
@@ -754,3 +747,41 @@ export default function PatientDetailForm() {
     </Box>
   );
 }
+
+
+
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     const missingFields = mandatoryCheck();
+// <<<<<<< HEAD
+// =======
+
+// >>>>>>> ca2da737e4fb105a49e8d0579017d85a4ec36f06
+//     if (missingFields.length > 0) {
+//       alert("Please fill mandatory details:\n\n" + missingFields.join(", "));
+//       return;
+//     }
+// <<<<<<< HEAD
+// =======
+//     for (let key in errors) {
+//       if (errors[key]) {
+//         alert("Please fix validation errors before submitting");
+//         return;
+//       }
+//     }
+
+// >>>>>>> ca2da737e4fb105a49e8d0579017d85a4ec36f06
+//     const formData = new FormData();
+//     Object.keys(form).forEach((key) => {
+//       if (key === "address") {
+//         formData.append("address", JSON.stringify(form.address));
+//       } else if (key === "caseType") {
+//         form.caseType.forEach((c) => formData.append("caseType", c));
+//       } else if (key === "file" && form.file) {
+//         formData.append("file", form.file);
+//       } else {
+//         formData.append(key, form[key]);
+//       }
+//     });
