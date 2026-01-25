@@ -13,18 +13,19 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 
-
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [captcha, setCaptcha] = useState(Math.random().toString(36).slice(8));
+  const [captcha, setCaptcha] = useState(
+    Math.random().toString(36).substring(2, 7),
+  );
   const [captchaInput, setCaptchaInput] = useState("");
   const [captchaError, setCaptchaError] = useState(false);
   const navigate = useNavigate();
 
   const refreshCaptcha = () => {
-    setCaptcha(Math.random().toString(36).slice(8));
+    setCaptcha(Math.random().toString(36).substring(2, 7));
     setCaptchaInput("");
     setCaptchaError(false);
   };
@@ -32,8 +33,6 @@ function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    console.log(captcha);
-    console.log(captchaInput);
     if (captchaInput !== captcha) {
       setCaptchaError(true);
       return;
@@ -47,7 +46,7 @@ function LoginPage() {
         password,
         captchaValue: true,
       });
-      navigate('/admin');
+      navigate("/admin");
       // alert(res.data.message);
       console.log("TOKEN:", res.data.token);
     } catch (err) {
@@ -70,18 +69,18 @@ function LoginPage() {
       <h2 style={{ textAlign: "center" }}>Admin Login</h2>
 
       <TextField
-         style={{marginBottom:"10px"}}
-          label="Username"
-          value={username}
-          fullWidth
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <TextField
-          label="Password"
-          value={password}
-          fullWidth
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        style={{ marginBottom: "10px" }}
+        label="Username"
+        value={username}
+        fullWidth
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <TextField
+        label="Password"
+        value={password}
+        fullWidth
+        onChange={(e) => setPassword(e.target.value)}
+      />
 
       <CardContent>
         <CardActions>
@@ -101,15 +100,15 @@ function LoginPage() {
 
           <Button startIcon={<RefreshIcon />} onClick={refreshCaptcha} />
 
-        <TextField
-          label="Enter Captcha"
-          value={captchaInput}
-          fullWidth
-          onChange={(e) => setCaptchaInput(e.target.value)}
-          error={captchaError}
-          helperText={captchaError && "Incorrect captcha"}
+          <TextField
+            label="Enter Captcha"
+            value={captchaInput}
+            fullWidth
+            onChange={(e) => setCaptchaInput(e.target.value)}
+            error={captchaError}
+            helperText={captchaError && "Incorrect captcha"}
           />
-          </CardActions>
+        </CardActions>
         <Button
           variant="contained"
           color="primary"

@@ -5,6 +5,7 @@ import ViewPatient from "./admin/pages/ViewPatient"
 import { Route, Routes } from "react-router-dom"
 import PatientDetailForm from "./pages/PatientDetailForm"
 import LoginPage from "./pages/LoginPage"
+import AddDoctorPrescription from "./pages/AddDoctorPrescription"
 
 const AllRoutes = () =>{
     return (
@@ -33,6 +34,11 @@ const AllRoutes = () =>{
     path="/addpatient"
     element={<DashboardLayout><PatientDetailForm /></DashboardLayout>}
   />
+  <Route
+  path="/admin/patient/:id/prescription"
+  element={<AddDoctorPrescription />}
+/>
+
 </Routes>
     )
 

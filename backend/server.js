@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import connectDB from "./config/db.js";
 import userRoutes from './routes/authRoutes.js'
 import patientRoutes from './routes/patientRoutes.js'
+import doctorPrescriptionRoutes from './routes/doctorPrescriptionRoutes.js'
+import { getPatientWithPrescriptions } from './controllers/doctorPrescriptionController.js';
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -24,6 +26,8 @@ app.use(json());
 app.use('/auth', userRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/patient", patientRoutes);
+app.use("/api", doctorPrescriptionRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -28,19 +28,19 @@ const PatientSchema = mongoose.Schema(
     selfName: String,
     campName: String,
 
-    complaint: String,
-    duration: String,
-    observations: String,
-    reviewedBy: String,
-    reviewDate: String,
-    diagnosis: String,
+    // complaint: String,
+    // duration: String,
+    // observations: String,
+    // reviewedBy: String,
+    // reviewDate: String,
+    // diagnosis: String,
 
-    caseType: [String],
-    doctorRequired: String,
-    expertise: String,
-    currentTreatment: String,
+    // caseType: [String],
+    // doctorRequired: String,
+    // expertise: String,
+    // currentTreatment: String,
 
-    file: String, // store filename
+    // file: String, // store filename
   },
   { timestamps: true }
 );

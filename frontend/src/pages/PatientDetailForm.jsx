@@ -160,24 +160,42 @@ export default function PatientDetailForm() {
     });
   };
 
+  const mandatoryCheck = () => {
+    const missingFields = [];
+
+    if (!form.registrationDate) missingFields.push("Registration Date");
+    if (!form.fullName.trim()) missingFields.push("Full Name");
+    if (!form.age) missingFields.push("Age");
+    if (!form.gender) missingFields.push("Gender");
+
+    if (!form.mobile) missingFields.push("Mobile Number");
+    // if (!form.whatsapp) missingFields.push("WhatsApp Number");
+    // if (!form.emergency) missingFields.push("Emergency Number");
+    // if (!form.guardian) missingFields.push("Guardian Number");
+    // if (!form.relationship) missingFields.push("Relationship");
+
+    if (!form.address.city) missingFields.push("City/Village");
+    if (!form.address.landmark) missingFields.push("Landmark");
+    if (!form.address.state) missingFields.push("State");
+    if (!form.address.pincode) missingFields.push("Pincode");
+
+    if (!form.referredBy) missingFields.push("Referred By");
+    if (!form.referredName) missingFields.push("Referred Name");
+
+    if (form.hasEmail === "Yes" && !form.email) missingFields.push("Email");
+
+    return missingFields;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const missingFields = mandatoryCheck();
+    if (missingFields.length > 0) {
+      alert("Please fill mandatory details:\n\n" + missingFields.join(", "));
+      return;
+    }
     const formData = new FormData();
-    // for (let key in form) {
-    //   if (key === "address") {
-    //     formData.append("city", form.address.city);
-    //     formData.append("landmark", form.address.landmark);
-    //     formData.append("state", form.address.state);
-    //     formData.append("pincode", form.address.pincode);
-    //   } else if (key === "caseType") {
-    //     form.caseType.forEach((item) => formData.append("caseType", item));
-    //   } else if (key === "file" && form.file) {
-    //     formData.append("file", form.file);
-    //   } else {
-    //     formData.append(key, form[key]);
-    //   }
-    // }
     Object.keys(form).forEach((key) => {
       if (key === "address") {
         formData.append("address", JSON.stringify(form.address));
@@ -203,7 +221,7 @@ export default function PatientDetailForm() {
         {
           method: "POST",
           body: formData,
-        }
+        },
       );
       const data = await res.json();
       alert(data.message + "\nPlease note your patient Id");
@@ -523,7 +541,7 @@ export default function PatientDetailForm() {
                     <MenuItem defaultChecked key={option} value={option}>
                       {option}
                     </MenuItem>
-                  )
+                  ),
                 )}
               </TextField>
             </Grid>
@@ -581,8 +599,8 @@ export default function PatientDetailForm() {
             </Grid>
           </Grid>
           {/* MEDICAL REVIEW DETAILS */}
-          <Grid container spacing={2} sx={{ mt: 1 }}>
-            <Typography fontWeight="bold">Medical Review Details</Typography>
+          {/* <Grid container spacing={2} sx={{ mt: 1 }}> */}
+          {/* <Typography fontWeight="bold">Medical Review Details</Typography>
           </Grid>
           <Grid container spacing={2} sx={{ mt: 1 }}>
             <Grid item xs={12} style={{ width: "400px" }}>
@@ -654,7 +672,7 @@ export default function PatientDetailForm() {
             </Grid>
 
             {/* CASE TYPE */}
-            <Grid item xs={12}>
+          {/*<Grid item xs={12}>
               <Typography fontWeight="bold">Type of Case</Typography>
               <Box>
                 {["General", "Surgical", "Emergency", "Follow-up"].map((c) => (
@@ -712,7 +730,7 @@ export default function PatientDetailForm() {
               </Typography>
               <input type="file" onChange={handleFile} />
             </Grid>
-          </Grid>
+          </Grid> */}
           {/* 
             <Grid container spacing={2} style={{display:'flex', justifyContent:'center'}}>
             <Grid item xs={12} mt={2}>
