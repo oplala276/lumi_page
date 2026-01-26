@@ -401,10 +401,10 @@ export default function AddDoctorPrescription() {
         {/* Clinical Examination */}
         <Typography variant="h6">Clinical Examination</Typography>
         <Grid container spacing={2} sx={{ mt: 1 }}>
-          {["BP", "Pulse", "Temperature", "Weight"].map((f) => (
+          {["bp", "pulse", "temperature", "weight"].map((f) => (
             <Grid item xs={12} sm={3} key={f}>
               <TextField
-                label={f}
+                label={f.charAt(0).toUpperCase()+f.slice(1)}
                 fullWidth
                 value={form[f]}
                 onChange={(e) => setField(f, e.target.value)}
