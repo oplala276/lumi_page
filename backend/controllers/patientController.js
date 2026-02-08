@@ -3,8 +3,8 @@ import Counterid from "../models/Counterid.js";
 
 export async function createPatient(req, res) {
   try {
-     console.log("BODY:", req.body);
-    console.log("FILE:", req.file);
+    //  console.log("BODY:", req.body);
+    // console.log("FILE:", req.file);
     const data = { ...req.body };
       if (data.address) {
   data.address = JSON.parse(data.address);
@@ -29,7 +29,7 @@ export async function createPatient(req, res) {
       { new: true, upsert: true }
     );
     const patientId = `PT_${String(counter.seq).padStart(7, "0")}`;
-    console.log("Generated Patient ID:", patientId);
+    // console.log("Generated Patient ID:", patientId);
     // Add uploaded file if exists
     if (req.file) {
       data.file = req.file.filename;
@@ -70,5 +70,20 @@ export async function deletePatient(req, res){
     res.json({ success: true, message: "Deleted" });
   } catch {
     res.status(500).json({ success: false });
+  }
+};
+
+export const checkPatientId = async (req, res) => {
+  try {
+    const patient = await Patient.findOne({ patientId: req.params.patientId });
+
+    if (!patient) {
+      return res.json({ exists: false }); 
+    }
+
+    res.json({ exists: true, patient });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
   }
 };

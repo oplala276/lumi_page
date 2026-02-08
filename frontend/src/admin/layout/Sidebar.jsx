@@ -1,10 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Box, List, ListItemButton, ListItemText, Typography } from "@mui/material";
+import {
+  Box,
+  List,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 
 export default function Sidebar() {
-const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(0);
 
   const fetchStats = async () => {
     const res = await fetch("https://lumi-page-api.onrender.com/api/patient");
@@ -14,8 +20,8 @@ const [total, setTotal] = useState(0);
   };
 
   useEffect(() => {
-      fetchStats();
-    }, []);
+    fetchStats();
+  }, []);
 
   return (
     <Box
@@ -47,10 +53,10 @@ const [total, setTotal] = useState(0);
         <ListItemButton>
           <ListItemText primary="Attach Medical Report" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/appointmentshistory">
           <ListItemText primary="Appointments History" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/scheduleappointment">
           <ListItemText primary="Fix An Appointment" />
         </ListItemButton>
         <ListItemButton>

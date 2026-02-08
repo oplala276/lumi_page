@@ -8,7 +8,7 @@ import doctorPrescriptionRoutes from './routes/doctorPrescriptionRoutes.js'
 import { getPatientWithPrescriptions } from './controllers/doctorPrescriptionController.js';
 import { fileURLToPath } from "url";
 import path from "path";
-
+import appointmentRoutes from './routes/appointmentRoutes.js'
 
 
 dotenv.config();
@@ -27,7 +27,7 @@ app.use('/auth', userRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/patient", patientRoutes);
 app.use("/api", doctorPrescriptionRoutes);
-
+app.use("/api/appointment", appointmentRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

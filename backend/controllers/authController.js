@@ -20,7 +20,6 @@ export const loginAdmin = async (req, res) => {
   //    { expiresIn: "1d" }
   //  );
    res.json({ message: "Login Success" });
-  //  console.log("Logged In");
  } catch (err) {
    res.status(500).send("Server Error");
  }

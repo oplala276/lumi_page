@@ -1,4 +1,5 @@
 import express from "express";
+import { searchDoctors } from "../controllers/searchDoctors.js";
 import {
   addDoctorPrescription,
   // getPatientPrescriptions,
@@ -11,4 +12,5 @@ router.post("/patient/:patientId/prescription", addDoctorPrescription);
 // router.get("/patient/:patientId/prescription", getPatientPrescriptions);
 router.get("/patient/:id/details", getPatientWithPrescriptions);
 
+router.get("/doctors/search", searchDoctors);
 export default router;
