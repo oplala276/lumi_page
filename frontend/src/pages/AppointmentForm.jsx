@@ -186,7 +186,7 @@ export default function AppointmentForm() {
       >
         Schedule an Appointment
       </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} style={{ padding: "0px 36px" }}>
         <Grid item xs={12} sm={6}>
           <TextField
             label="Patient ID"
@@ -248,20 +248,19 @@ export default function AppointmentForm() {
               helperText={errors.appointmentDate}
             />
           </Grid> */}
-<Grid item xs={12} sm={6}>
-  <TextField
-    type="date"
-    label="Appointment Date"
-    fullWidth
-    InputLabelProps={{ shrink: true }}
-    inputProps={{ min: today }}   // 👈 Prevent past dates
-    value={form.appointmentDate}
-    onChange={(e) => setField("appointmentDate", e.target.value)}
-    error={!!errors.appointmentDate}
-    helperText={errors.appointmentDate}
-  />
-</Grid>
-
+          <Grid item xs={12} sm={6} style={{ width: "195px" }}>
+            <TextField
+              type="date"
+              label="Appointment Date"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              inputProps={{ min: today }} // 👈 Prevent past dates
+              value={form.appointmentDate}
+              onChange={(e) => setField("appointmentDate", e.target.value)}
+              error={!!errors.appointmentDate}
+              helperText={errors.appointmentDate}
+            />
+          </Grid>
 
           <Grid item xs={12} sm={6} style={{ width: "250px" }}>
             <TextField
@@ -334,7 +333,7 @@ export default function AppointmentForm() {
           </Grid>
 
           {form.followUpNeeded && (
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} style={{ width: "200px" }}>
               <TextField
                 type="date"
                 label="Next Appointment Date"
@@ -362,7 +361,7 @@ export default function AppointmentForm() {
             />
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} style={{ width: "250px" }}>
+        <Grid item xs={12} sm={6} style={{ width: "215px" }}>
           <TextField
             label="Enter Patient Mobile Number"
             fullWidth
@@ -373,7 +372,7 @@ export default function AppointmentForm() {
           />
         </Grid>
 
-        <Grid item xs={12} sm={6} style={{ width: "250px" }}>
+        <Grid item xs={12} sm={6} style={{ width: "225px" }}>
           <TextField
             label="Enter Patient Email"
             fullWidth
@@ -384,7 +383,7 @@ export default function AppointmentForm() {
           />
         </Grid>
 
-        <Grid item xs={12} sm={6} style={{ width: "250px" }}>
+        <Grid item xs={12} sm={6} style={{ width: "220px" }}>
           <TextField
             select
             label="Confirmation Sent to Patient?"
