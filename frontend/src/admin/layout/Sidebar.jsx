@@ -27,7 +27,7 @@ export default function Sidebar() {
     <Box
       sx={{
         width: 215,
-        height: "100vh",
+        // height: "100vh",
         bgcolor: "#1976d2",
         color: "white",
         p: 2,

@@ -119,6 +119,7 @@ export default function PatientsTable() {
               <TableCell>{p.mobile}</TableCell>
 
               <TableCell>{p.referredBy || "—"}</TableCell>
+              {/* <TableCell>{p.referredBy || "-"}</TableCell> */}
 
               {/* Action Buttons */}
               <TableCell>
@@ -132,7 +133,7 @@ export default function PatientsTable() {
                   VIEW DETAILS
                 </Button>
 
-                <Button
+                {/* <Button
                   size="small"
                   variant="contained"
                   color="success"
@@ -141,7 +142,7 @@ export default function PatientsTable() {
                   sx={{ mr: 1 }}
                 >
                   EDIT
-                </Button>
+                </Button> */}
                 <Button
                   size="small"
                   variant="contained"
@@ -151,13 +152,13 @@ export default function PatientsTable() {
                 >
                   LINK DOCTOR PRESCRIPTION
                 </Button>
-                <Button
+                {/* <Button
                   size="small"
                   color="error"
                   onClick={() => deletePatient(p._id)}
                 >
                   Delete
-                </Button>
+                </Button> */}
               </TableCell>
             </TableRow>
           ))}

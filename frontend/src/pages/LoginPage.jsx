@@ -22,6 +22,8 @@ function LoginPage() {
   );
   const [captchaInput, setCaptchaInput] = useState("");
   const [captchaError, setCaptchaError] = useState(false);
+  const [loading, setLoading] = useState(false);
+const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const refreshCaptcha = () => {
@@ -32,9 +34,12 @@ function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+      setLoading(true);
 
     if (captchaInput !== captcha) {
       setCaptchaError(true);
+      setLoading(false);
+      // alert("Please enter correct Captcha.")
       return;
     }
 
@@ -51,6 +56,8 @@ function LoginPage() {
       console.log("TOKEN:", res.data.token);
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
+    }finally {
+    setLoading(false);
     }
   };
 
@@ -113,10 +120,11 @@ function LoginPage() {
           variant="contained"
           color="primary"
           onClick={handleLogin}
+          disabled={loading}
           sx={{ marginTop: "20px" }}
           fullWidth
         >
-          Login
+          {loading ? "Processing..." : "Login"}
         </Button>
       </CardContent>
     </div>

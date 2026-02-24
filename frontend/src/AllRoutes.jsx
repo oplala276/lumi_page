@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import AddDoctorPrescription from "./pages/AddDoctorPrescription";
 import ScheduleAppointment from "./pages/ScheduleAppointment";
 import AppointmentHistory from "./pages/AppointmentHistory";
+import AdminProfile from "./pages/AdminProfile";
 
 const AllRoutes = () => {
   return (
@@ -49,12 +50,13 @@ const AllRoutes = () => {
           </DashboardLayout>
         }
       />
-      <Route path="/appointmentshistory" element={<AppointmentHistory />} />
+      <Route path="/appointmentshistory" element={<DashboardLayout><AppointmentHistory /></DashboardLayout>} />
       <Route
         path="/admin/patient/:id/prescription"
-        element={<AddDoctorPrescription />}
+        element={<DashboardLayout><AddDoctorPrescription /></DashboardLayout>}
       />
-      <Route path="/scheduleappointment" element={<ScheduleAppointment />} />
+      <Route path="/admin-profile" element={<DashboardLayout><AdminProfile /></DashboardLayout>} />
+      <Route path="/scheduleappointment" element={<DashboardLayout><ScheduleAppointment /></DashboardLayout>} />
     </Routes>
   );
 };

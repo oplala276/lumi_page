@@ -28,6 +28,5 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/patient", patientRoutes);
 app.use("/api", doctorPrescriptionRoutes);
 app.use("/api/appointment", appointmentRoutes);
-
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
