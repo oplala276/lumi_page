@@ -16,7 +16,6 @@ export async function createAppointment(req, res) {
     res.status(500).json({ message: err.message });
   }
 };
-
 export const getPatientAppointments = async (req, res) => {
   try {
     const list = await Appointment.find({ patientId: req.params.id });
