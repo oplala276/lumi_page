@@ -1,46 +1,67 @@
 import Patient from "../models/Patient.js";
 import Counterid from "../models/Counterid.js";
+import s3 from "../config/s3.js";
 
+// export async function createPatient(req, res) {
+//   try {
+//     const data = { ...req.body };
+//       if (data.address) {
+//   data.address = JSON.parse(data.address);
+// }
+  
+//     const counter = await Counterid.findOneAndUpdate(
+//       { name: "patient" },
+//       { $inc: { seq: 1 } },
+//       { new: true, upsert: true }
+//     );
+//     const patientId = `PT_${String(counter.seq).padStart(7, "0")}`;
+  
+//     if (req.file) {
+//       data.file = req.file.filename;
+//     }
+//     const patient = await Patient.create({...data, patientId });
+//     res.status(201).json({
+//       success: true,
+//       message: `${patientId} registered successfully`,
+//       patient,
+//     });
+//   } catch (err) {
+//     res.status(500).json({ success: false, error: err.message });
+//   }
+// }
 export async function createPatient(req, res) {
   try {
-    //  console.log("BODY:", req.body);
-    // console.log("FILE:", req.file);
     const data = { ...req.body };
-      if (data.address) {
-  data.address = JSON.parse(data.address);
-}
-    // const address = {
-    //   city: body.city || "",
-    //   landmark: body.landmark || "",
-    //   state: body.state || "",
-    //   pincode: body.pincode || "",
-    // };
 
-    // // ✅ remove flat fields
-    // delete body.city;
-    // delete body.landmark;
-    // delete body.state;
-    // delete body.pincode;
+    if (data.address) {
+      data.address = JSON.parse(data.address);
+    }
 
-    // // console.log("Patient Data:", data);
     const counter = await Counterid.findOneAndUpdate(
       { name: "patient" },
       { $inc: { seq: 1 } },
       { new: true, upsert: true }
     );
+
     const patientId = `PT_${String(counter.seq).padStart(7, "0")}`;
-    // console.log("Generated Patient ID:", patientId);
-    // Add uploaded file if exists
+
+    // 🔥 AWS S3 Upload URL
     if (req.file) {
-      data.file = req.file.filename;
+      data.photo = req.file.key; // Store full S3 URL
     }
-    // const patient = await Patient.create({patientId, data});
-    const patient = await Patient.create({...data, patientId });
+
+    // console.log("photo key:", req.file.key); // Debugging log
+    const patient = await Patient.create({
+      ...data,
+      patientId,
+    });
+
     res.status(201).json({
       success: true,
       message: `${patientId} registered successfully`,
       patient,
     });
+
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -55,14 +76,42 @@ export async function getPatients(req, res) {
   }
 }
 
+// export async function getPatientById(req, res) {
+//   try {
+//     const patient = await Patient.findById(req.params.id);
+//     res.json({ success: true, patient });
+//   } catch {
+//     res.status(500).json({ success: false });
+//   }
+// };
+
 export async function getPatientById(req, res) {
   try {
     const patient = await Patient.findById(req.params.id);
-    res.json({ success: true, patient });
-  } catch {
-    res.status(500).json({ success: false });
+
+    if (!patient) {
+      return res.status(404).json({ success: false, message: "Patient not found" });
+    }
+
+    let signedUrl = null;
+
+    if (patient.photo) {
+      signedUrl = s3.getSignedUrl("getObject", {
+        Bucket: "patient-photo-storage-lumi",
+        Key: patient.photo,
+        Expires: 60 * 60 * 24, // 5 minutes
+      });
+    }
+
+    res.json({
+      success: true,
+      patient,
+      photoUrl: signedUrl,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
   }
-};
+}
 
 export async function deletePatient(req, res){
   try {

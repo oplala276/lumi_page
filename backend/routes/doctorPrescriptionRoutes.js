@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post("/patient/:patientId/prescription", addDoctorPrescription);
 // router.get("/patient/:patientId/prescription", getPatientPrescriptions);
-router.get("/patient/:id/details", getPatientWithPrescriptions);
+router.get("/patient/:id/getprescriptions", getPatientWithPrescriptions);
 
 router.get("/doctors/search", searchDoctors);
 export default router;

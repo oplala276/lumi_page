@@ -24,12 +24,12 @@ export default function PatientsTable() {
     setPatients(data.patients);
   };
 
-  const deletePatient = async (id) => {
-    await fetch(`https://lumi-page-api.onrender.com/api/patient/${id}`, {
-      method: "DELETE",
-    });
-    getData();
-  };
+  // const deletePatient = async (id) => {
+  //   await fetch(`https://lumi-page-api.onrender.com/api/patient/${id}`, {
+  //     method: "DELETE",
+  //   });
+  //   getData();
+  // };
 
   useEffect(() => {
     getData();
@@ -149,8 +149,9 @@ export default function PatientsTable() {
                   color="primary"
                   component={Link}
                   to={`/admin/patient/${p._id}/prescription`}
+                  style={{marginTop:'2px'}}
                 >
-                  LINK DOCTOR PRESCRIPTION
+                  LINK PRESCRIPTION
                 </Button>
                 {/* <Button
                   size="small"

@@ -35,10 +35,12 @@ export default function Sidebar() {
         // position: "fixed",
       }}
     >
-      <Typography variant="h5" fontWeight="bold" mb={3}>
+      <Typography style={{ marginBottom: 2 }} variant="h5" fontWeight="bold" mb={3}>
         Admin Panel
+      <Typography style={{ marginBottom: 2 }} fontSize={15} mb={3} >
+        Patient Management System
       </Typography>
-
+      </Typography>
       <List>
         <ListItemButton component={Link} to="/admin">
           <ListItemText primary="Dashboard" />

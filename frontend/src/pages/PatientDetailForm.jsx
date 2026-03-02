@@ -22,6 +22,8 @@ export default function PatientDetailForm() {
     registrationDate: null,
     fullName: "",
     age: "",
+    photo: null,
+    preview: null,
     gender: "",
     mobile: "",
     whatsapp: "",
@@ -87,12 +89,19 @@ export default function PatientDetailForm() {
     "West Bengal",
   ];
 
+  const [selectedFile, setSelectedFile] = useState(null);
   const [errors, setErrors] = useState({});
   const [form, setForm] = useState(initialFormState);
 
   const setField = (name, value) => {
     setForm((prev) => ({ ...prev, [name]: value }));
     validateField(name, value);
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setField("photo", file);
+    setField("preview", URL.createObjectURL(file));
   };
 
   const validateField = (name, value) => {
@@ -135,10 +144,10 @@ export default function PatientDetailForm() {
   };
 
   // Generic handler
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setForm((prev) => ({ ...prev, [name]: value }));
+  // };
 
   const handleReset = () => {
     setForm(initialFormState);
@@ -147,6 +156,10 @@ export default function PatientDetailForm() {
   const handleFile = (e) => {
     setForm((prev) => ({ ...prev, file: e.target.files[0] }));
   };
+  const handleFileChange = (e) => {
+  const file = e.target.files[0];
+  setSelectedFile(file);
+};
 
   const toggleCaseType = (type) => {
     setForm((prev) => {
@@ -201,9 +214,9 @@ export default function PatientDetailForm() {
         formData.append("address", JSON.stringify(form.address));
       } else if (key === "caseType") {
         form.caseType.forEach((c) => formData.append("caseType", c));
-      } else if (key === "file" && form.file) {
-        formData.append("file", form.file);
-      } else {
+      }else if (key === "photo" && form.photo) {
+  formData.append("photo", form.photo);
+} else {
         formData.append(key, form[key]);
       }
     });
@@ -211,6 +224,7 @@ export default function PatientDetailForm() {
     try {
       const res = await fetch(
         "https://lumi-page-api.onrender.com/api/patient/add",
+        // "http://localhost:5000/api/patient/add",
         {
           method: "POST",
           body: formData,
@@ -226,7 +240,7 @@ export default function PatientDetailForm() {
 
   return (
     <Box p={3}>
-      <Paper elevation={3} sx={{ p: 4, maxWidth: 900, mx: "auto" }}>
+      <Paper elevation={3} sx={{ p: 4, maxWidth: 850, mx: "auto" }}>
         <Typography variant="h4" align="center" gutterBottom>
           PATIENT PERSONAL DETAIL FORM
         </Typography>
@@ -278,6 +292,18 @@ export default function PatientDetailForm() {
                 helperText={errors.age}
               />
             </Grid>
+            <Grid> 
+              <Typography fontWeight="bold">Upload Patient Photo</Typography>
+              <input type="file" accept="image/*" onChange={handleImageChange} />
+
+      {form.preview && (
+        <img
+          src={form.preview}
+          alt="preview"
+          width="150"
+          style={{ marginTop: "10px" }}
+        />
+      )}</Grid>
           </Grid>
           <Grid
             container

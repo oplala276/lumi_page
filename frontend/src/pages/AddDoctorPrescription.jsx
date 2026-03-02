@@ -103,7 +103,7 @@ export default function AddDoctorPrescription() {
   useEffect(() => {
     const fetchPatient = async () => {
       try {
-        const res = await api.get(`/api/patient/${id}`);
+        const res = await api.get(`/api/patient/${id}/details`);
         setPatient(res.data.patient);
       } catch (err) {
         console.error("Failed to fetch patient", err);

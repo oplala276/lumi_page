@@ -14,7 +14,7 @@ const PatientSchema = mongoose.Schema(
     emergency: String,
     email: String,
     relationship: String,
-
+    photo: String, 
     address: {
       city: String,
       landmark: String,

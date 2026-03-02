@@ -10,12 +10,15 @@ import {
   TextField,
 } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { IconButton, InputAdornment } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+const [showPassword, setShowPassword] = useState(false);
 
   const [captcha, setCaptcha] = useState(
     Math.random().toString(36).substring(2, 7),
@@ -55,7 +58,7 @@ const [error, setError] = useState("");
       // alert(res.data.message);
       console.log("TOKEN:", res.data.token);
     } catch (err) {
-      alert(err.response?.data?.message || "Login failed");
+      alert(err.response?.data?.mes || "Login failed");
     }finally {
     setLoading(false);
     }
@@ -82,12 +85,31 @@ const [error, setError] = useState("");
         fullWidth
         onChange={(e) => setUsername(e.target.value)}
       />
-      <TextField
+      {/* <TextField
         label="Password"
         value={password}
         fullWidth
         onChange={(e) => setPassword(e.target.value)}
-      />
+      /> */}
+      <TextField
+  label="Password"
+  type={showPassword ? "text" : "password"}
+  value={password}
+  fullWidth
+  onChange={(e) => setPassword(e.target.value)}
+  InputProps={{
+    endAdornment: (
+      <InputAdornment position="end">
+        <IconButton
+          onClick={() => setShowPassword(!showPassword)}
+          edge="end"
+        >
+          {showPassword ? <VisibilityOff /> : <Visibility />}
+        </IconButton>
+      </InputAdornment>
+    ),
+  }}
+/>
 
       <CardContent>
         <CardActions>
