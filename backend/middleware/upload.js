@@ -21,7 +21,7 @@ import s3 from "../config/s3.js";
 const upload = multer({
   storage: multerS3({
     s3: s3,
-    bucket: "patient-photo-storage-lumi",
+    bucket: "lumi-patient-photo-bt",
     contentType: multerS3.AUTO_CONTENT_TYPE,
     key: function (req, file, cb) {
       const fileName = Date.now().toString() + "-" + file.originalname;
