@@ -97,7 +97,7 @@ export async function getPatientById(req, res) {
 
     if (patient.photo) {
       signedUrl = s3.getSignedUrl("getObject", {
-        Bucket: "patient-photo-storage-lumi",
+        Bucket: "lumi-patient-photo-bt",
         Key: patient.photo,
         Expires: 60 * 60 * 24, // 5 minutes
       });
